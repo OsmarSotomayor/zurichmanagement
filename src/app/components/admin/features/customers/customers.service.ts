@@ -7,19 +7,33 @@ import { Observable, tap, map } from 'rxjs';
   providedIn: 'root'
 })
 export class CustomersService {
- private apiUrl = 'https://tu-api.com/customers';
+  private baseUrl = 'https://zurichpolicyservice-aqdyh7fhhkhfhreq.centralus-01.azurewebsites.net/api/clientes';
 
   constructor(private http: HttpClient) { }
 
-   getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.apiUrl);
+  getCustomers(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(this.baseUrl);
   }
 
-  addCustomer(customer: Customer): Observable<void> {
-    return this.http.post<void>(this.apiUrl, customer);
+  addCustomer(customer: Customer): Observable<any> {
+    return this.http.post(this.baseUrl, {
+      fullName: customer.name,
+      email: customer.email,
+      phoneNumber: customer.phone,
+      addres: customer.address || 'string' // Asignamos 'string' si address es undefined
+    });
   }
 
-  deleteCustomer(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  updateCustomer(id: string, customer: Customer): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}`, {
+      fullName: customer.name,
+      email: customer.email,
+      phoneNumber: customer.phone,
+      addres: customer.address || 'string'
+    });
+  }
+
+  deleteCustomer(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }
