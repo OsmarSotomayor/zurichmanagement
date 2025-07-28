@@ -1,7 +1,7 @@
 export interface Customer {
-  identificationNumber: string;  // Cambia id por identificationNumber
-  fullName: string;              // Cambia name por fullName
+  identificationNumber: string;  
+  fullName: string;              
   email: string;
-  phoneNumber: string;           // Cambia phone por phoneNumber
-  address?: string;  // Se mapea a addres (opcional)
+  phoneNumber: string;           
+  address?: string;  
 }
