@@ -24,7 +24,7 @@ export class ClientapiService {
   // Solicitar cancelación de póliza
   requestPolicyCancellation(policyId: string): Observable<any> {
     const url = `${this.baseUrl}/policy/${policyId.toUpperCase()}/cancelar`;
-    return this.http.post(url, {});
+    return this.http.patch(url, {});
   }
 
   // Actualizar datos del cliente

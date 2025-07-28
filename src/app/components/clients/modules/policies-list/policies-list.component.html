@@ -1,1 +1,99 @@
-<p>policies-list works!</p>
+<div class="policies-container">
+  <!-- Formulario para ingresar identificador -->
+  <div *ngIf="!submitted" class="identificator-form">
+    <h2>Consulta tus pólizas</h2>
+    <form (ngSubmit)="loadPolicies()">
+      <div class="form-group">
+        <label for="clientIdentificator">Ingrese su número de identificador:</label>
+        <input 
+          type="text" 
+          id="clientIdentificator" 
+          [(ngModel)]="clientIdentificator" 
+          name="clientIdentificator"
+          placeholder="Ejemplo: 1209777481"
+          required>
+      </div>
+      <button type="submit" class="submit-btn">Consultar pólizas</button>
+    </form>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  </div>
+
+  <!-- Listado de pólizas (se muestra después de enviar) -->
+  <div *ngIf="submitted" class="policies-content">
+    <div class="header">
+      <h1>Mis Pólizas <small>(ID: {{clientIdentificator}})</small></h1>
+      <button class="back-btn" (click)="resetForm()">Cambiar identificador</button>
+      
+      <div class="controls">
+        <div class="tabs">
+
+ 
+        </div>
+        <button class="filter-btn" (click)="toggleFilters()">
+          {{ showFilters ? 'Ocultar filtros' : 'Mostrar filtros' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div *ngIf="showFilters" class="filters-section">
+      <div class="filter-group">
+        <label for="policyType">Tipo de póliza:</label>
+        <select id="policyType" [(ngModel)]="selectedType" (change)="applyFilters()">
+          <option value="">Todos los tipos</option>
+          <option *ngFor="let type of policyTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="loading">Cargando pólizas...</div>
+    
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+      <button (click)="loadPolicies()">Reintentar</button>
+    </div>
+
+    <div *ngIf="!loading && !error" class="policies-list">
+      <div *ngFor="let policy of filteredPolicies" class="policy-card">
+        <div class="policy-header">
+          <h3>{{ policy.type }}</h3>
+          <span [class.active]="policy.state === 'Active'" 
+                [class.cancelled]="policy.state === 'Cancelled'">
+            {{ policy.state === 'Active' ? 'Activa' : 'Cancelada' }}
+          </span>
+        </div>
+        
+        <div class="policy-details">
+          <p><strong>ID Póliza:</strong> {{ policy.id }}</p>
+          <p><strong>Inicio:</strong> {{ policy.startDate | date:'mediumDate' }}</p>
+          <p><strong>Vencimiento:</strong> {{ policy.expirationDate | date:'mediumDate' }}</p>
+          <p><strong>Monto:</strong> {{ policy.amount | currency }}</p>
+        </div>
+
+        <!--cancelar poliza-->
+       <div class="policy-actions" *ngIf="policy.state === 'Active'">
+            <button 
+                class="cancel-btn"
+                (click)="requestCancellation(policy.id)"
+                [disabled]="cancellingPolicyId === policy.id">
+                <span *ngIf="cancellingPolicyId !== policy.id">Solicitar Cancelación</span>
+                <span *ngIf="cancellingPolicyId === policy.id">Cancelando...</span>
+            </button>
+            
+            <!-- Mensajes de estado -->
+            <div *ngIf="cancellationSuccess && cancellingPolicyId === policy.id" class="success-message">
+                ¡Póliza cancelada exitosamente!
+            </div>
+            <div *ngIf="cancellationError && cancellingPolicyId === policy.id" class="error-message">
+                {{ cancellationError }}
+                <button (click)="requestCancellation(policy.id)">Reintentar</button>
+            </div>
+            </div>
+
+      <div *ngIf="filteredPolicies.length === 0" class="no-policies">
+        No hay pólizas {{ activeTab === 'active' ? 'activas' : 'canceladas' }}
+        <span *ngIf="selectedType">del tipo {{ selectedType }}</span>
+      </div>
+    </div>
+  </div>
+</div>

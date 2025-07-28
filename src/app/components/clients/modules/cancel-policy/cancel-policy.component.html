@@ -1,1 +1,32 @@
-<p>cancel-policy works!</p>
+<div class="cancel-policy-container">
+  <h2>Cancelar Póliza</h2>
+  
+  <form (ngSubmit)="cancelPolicy()" class="cancel-form">
+    <div class="form-group">
+      <label for="policyId">Ingrese el ID de la póliza a cancelar:</label>
+      <input 
+        type="text" 
+        id="policyId" 
+        [(ngModel)]="policyId" 
+        name="policyId"
+        placeholder="Ejemplo: CFAC30E3-E198-49C1-9105-08DDCDC9120C"
+        required>
+    </div>
+
+    <button type="submit" [disabled]="loading" class="submit-btn">
+      <span *ngIf="!loading">Solicitar Cancelación</span>
+      <span *ngIf="loading">Procesando...</span>
+    </button>
+  </form>
+
+  <!-- Mensaje de éxito -->
+  <div *ngIf="success" class="success-message">
+    ¡La póliza ha sido cancelada exitosamente!
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button (click)="cancelPolicy()" *ngIf="error && !loading">Reintentar</button>
+  </div>
+</div>
