@@ -5,24 +5,28 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // Obtener el token del localStorage
     const token = localStorage.getItem('token');
-    console.log('Token exists:', !!token);
-    
+    console.log(`[Interceptor] Petición a: ${request.url}`);
+    console.log(`[Interceptor] Token disponible: ${!!token}`);
+
     if (token) {
-      console.log('Adding Authorization header');
+      console.log('[Interceptor] Añadiendo token JWT a los headers');
       const authReq = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
       });
-      return next.handle(authReq);
+      return next.handle(authReq).pipe(
+        tap({
+          next: (event) => console.log('[Interceptor] Petición exitosa'),
+          error: (err) => console.error('[Interceptor] Error en petición:', err)
+        })
+      );
     }
 
     return next.handle(request);

@@ -24,13 +24,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let customer of customers">
-        <td>{{ customer.id }}</td>
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.email }}</td>
-        <td>{{ customer.phone }}</td>
+          <td>{{ customer.identificationNumber }}</td>
+          <td>{{ customer.fullName }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.phoneNumber }}</td>
         <td class="actions">
           <button class="btn-edit">Editar</button>
-          <button class="btn-delete" (click)="deleteCustomer(customer.id)">Eliminar</button>
+          <button class="btn-delete" (click)="deleteCustomer(customer.identificationNumber)">Eliminar</button>
         </td>
       </tr>
     </tbody>

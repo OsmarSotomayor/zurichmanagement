@@ -1,7 +1,7 @@
 export interface Customer {
-  id?: string;        // Número de identificación (10 dígitos)
-  name: string;       // Se mapea a fullName en la API
-  email: string;      // Igual
-  phone: string;      // Se mapea a phoneNumber
-  address?: string;   // Se mapea a addres (opcional)
+  identificationNumber: string;  // Cambia id por identificationNumber
+  fullName: string;              // Cambia name por fullName
+  email: string;
+  phoneNumber: string;           // Cambia phone por phoneNumber
+  address?: string;  // Se mapea a addres (opcional)
 }
