@@ -9,5 +9,17 @@ export const routes: Routes = [
   { 
     path: 'login', 
     component: LoginComponent 
+  },
+   { 
+    path: 'admin', 
+    loadComponent: () => import('./components/admin/admin/admin.component').then(m => m.AdminComponent) 
+  },
+  { 
+    path: 'client', 
+    loadComponent: () => import('./components/clients/client/client.component').then(m => m.ClientComponent) 
+  },
+  { 
+    path: '**', 
+    redirectTo: 'login'  // Manejo de rutas no encontradas
   }
 ];
