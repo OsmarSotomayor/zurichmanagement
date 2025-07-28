@@ -31,13 +31,13 @@ export class CustomersService {
   }
 
   updateCustomer(id: string, customer: Customer): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, {
-      fullName: customer.email,
-      email: customer.email,
-      phoneNumber: customer.fullName,
-      addres: customer.address || 'string'
-    });
-  }
+  return this.http.put(`${this.baseUrl}/${id}`, {
+    fullName: customer.fullName,  
+    email: customer.email,
+    phoneNumber: customer.phoneNumber,  
+    addres: customer.address || 'string'
+  });
+}
 
   deleteCustomer(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);

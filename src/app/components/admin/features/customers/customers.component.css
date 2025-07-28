@@ -67,3 +67,86 @@
   background-color: #ffebee;
   color: #d32f2f;
 }
+
+/* Estilos para el modal de edición */
+.edit-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  z-index: 1000;
+  width: 80%;
+  max-width: 500px;
+}
+
+.edit-modal h3 {
+  margin-top: 0;
+  color: #1976d2;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Fondo oscuro cuando el modal está abierto */
+.edit-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+/*agregar cliente */
+input:invalid {
+  border-color: #f44336;
+}
+
+button:disabled {
+  background-color: #cccccc !important;
+  cursor: not-allowed;
+}

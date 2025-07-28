@@ -3,18 +3,23 @@ import { Customer } from '../../../../shared/customer.model';
 import { CustomersService } from './customers.service';
 import { Observable, of, catchError, finalize, map } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css']
 })
+
 export class CustomersComponent implements OnInit {
   customers: Customer[] = [];
   loading = false;
   error: string | null = null;
+  router: any;
+  editingCustomer: Customer | null = null;
+  newCustomer: Customer | null = null;
 
   constructor(private customersService: CustomersService) {}
 
@@ -51,7 +56,7 @@ export class CustomersComponent implements OnInit {
         }),
         finalize(() => {
           this.loading = false;
-          this.loadCustomers(); // Recargar la lista después de eliminar
+          this.loadCustomers(); 
         })
       ).subscribe();
     }
@@ -63,7 +68,68 @@ export class CustomersComponent implements OnInit {
       fullName: customer.fullName,
       email: customer.email,
       phoneNumber: customer.phoneNumber,
-      // address: customer.address // Descomenta si necesitas este campo
     }));
   }
+  
+   startEdit(customer: Customer): void {
+    this.editingCustomer = { ...customer }; 
+  }
+
+   saveEdit(): void {
+    if (this.editingCustomer) {
+      this.loading = true;
+      this.customersService.updateCustomer(
+        this.editingCustomer.identificationNumber, 
+        this.editingCustomer
+      ).pipe(
+        catchError(error => {
+          this.error = 'Error al actualizar cliente';
+          return of(null);
+        }),
+        finalize(() => {
+          this.loading = false;
+          this.editingCustomer = null;
+          this.loadCustomers(); 
+        })
+      ).subscribe();
+    }
+  }
+
+   cancelEdit(): void {
+    this.editingCustomer = null;
+  }
+
+  //agregar nuevo cliente 
+
+   startAdd(): void {
+    this.newCustomer = {
+      identificationNumber: '',
+      fullName: '',
+      email: '',
+      phoneNumber: '',
+      address: ''
+    };
+  }
+
+  saveNew(): void {
+    if (this.newCustomer) {
+      this.loading = true;
+      this.customersService.addCustomer(this.newCustomer).pipe(
+        catchError(error => {
+          this.error = 'Error al crear cliente';
+          return of(null);
+        }),
+        finalize(() => {
+          this.loading = false;
+          this.newCustomer = null;
+          this.loadCustomers(); 
+        })
+      ).subscribe();
+    }
+  }
+
+  cancelAdd(): void {
+    this.newCustomer = null;
+  }
+  
 }

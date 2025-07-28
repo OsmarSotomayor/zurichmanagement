@@ -29,12 +29,67 @@
           <td>{{ customer.email }}</td>
           <td>{{ customer.phoneNumber }}</td>
         <td class="actions">
-          <button class="btn-edit">Editar</button>
+          <button class="btn-edit" (click)="startEdit(customer)" >Editar</button>
           <button class="btn-delete" (click)="deleteCustomer(customer.identificationNumber)">Eliminar</button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <button class="btn-add" routerLink="./new">+ Nuevo Cliente</button>
+  <!-- Modal de Edición -->
+  <div *ngIf="editingCustomer" class="edit-modal">
+    <h3>Editar Cliente</h3>
+    <div class="form-group">
+      <label>Número de Identificación:</label>
+      <input [(ngModel)]="editingCustomer.identificationNumber" disabled>
+    </div>
+    <div class="form-group">
+      <label>Nombre Completo:</label>
+      <input [(ngModel)]="editingCustomer.fullName">
+    </div>
+    <div class="form-group">
+      <label>Email:</label>
+      <input [(ngModel)]="editingCustomer.email" type="email">
+    </div>
+    <div class="form-group">
+      <label>Teléfono:</label>
+      <input [(ngModel)]="editingCustomer.phoneNumber">
+    </div>
+    <div class="modal-actions">
+      <button (click)="saveEdit()" class="btn-save">Guardar</button>
+      <button (click)="cancelEdit()" class="btn-cancel">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Modal de Nuevo Cliente -->
+<div *ngIf="newCustomer" class="edit-modal">
+ 
+  <div class="form-group">
+    <label>Nombre Completo:</label>
+    <input [(ngModel)]="newCustomer.fullName" required>
+  </div>
+  <div class="form-group">
+    <label>Email:</label>
+    <input [(ngModel)]="newCustomer.email" type="email" required>
+  </div>
+  <div class="form-group">
+    <label>Teléfono:</label>
+    <input [(ngModel)]="newCustomer.phoneNumber" required>
+  </div>
+  <div class="form-group">
+    <label>Dirección (opcional):</label>
+    <input [(ngModel)]="newCustomer.address">
+  </div>
+  <div class="modal-actions">
+    <button (click)="saveNew()" class="btn-save" 
+            [disabled]=" !newCustomer.fullName || !newCustomer.email || !newCustomer.phoneNumber">
+      Guardar
+    </button>
+    <button (click)="cancelAdd()" class="btn-cancel">Cancelar</button>
+  </div>
+</div>
+
+
+<button class="btn-add" (click)="startAdd()">+ Nuevo Cliente</button>
+
 </div>
