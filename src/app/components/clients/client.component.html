@@ -1,1 +1,37 @@
-<p>client works!</p>
+<div class="client-dashboard">
+  <header class="dashboard-header">
+    <h1>Administración de clientes</h1>
+    <p>Bienvenido a tu área personal de cliente</p>
+  </header>
+
+   <nav class="menu-options">
+    <a routerLink="policies-list" routerLinkActive="active" class="menu-option">
+      <div class="option-content">
+        <i class="icon">📋</i>
+        <h2>Consultar Pólizas</h2>
+        <p>Revisa tus pólizas activas y canceladas</p>
+      </div>
+    </a>
+
+
+    <a routerLink="cancel-policy" class="menu-option">
+      <div class="option-content">
+        <i class="icon">✖️</i>
+        <h2>Cancelar Póliza</h2>
+        <p>Solicita la cancelación de una póliza activa</p>
+      </div>
+    </a>
+
+    <a routerLink="profile" class="menu-option">
+      <div class="option-content">
+        <i class="icon">👤</i>
+        <h2>Editar Perfil</h2>
+        <p>Actualiza tu dirección y teléfono</p>
+      </div>
+    </a>
+      <div class="content-container">
+    <router-outlet></router-outlet>
+  </div>
+  </nav>
+  
+</div>

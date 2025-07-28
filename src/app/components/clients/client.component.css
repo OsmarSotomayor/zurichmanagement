@@ -1,0 +1,123 @@
+.client-dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.dashboard-header h1 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.summary-cards {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  gap: 1.5rem;
+}
+
+.summary-card {
+  flex: 1;
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+}
+
+.summary-card h3 {
+  color: #34495e;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.summary-card .count {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #3498db;
+  margin: 1rem 0;
+}
+
+.card-link {
+  display: inline-block;
+  color: #2980b9;
+  text-decoration: none;
+  font-weight: 300;
+  margin-top: 0.5rem;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+.menu-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.menu-option {
+  background: white;
+  border-radius: 5px;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border-left: 4px solid #3498db;
+}
+
+.menu-option:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-left: 4px solid #2980b9;
+}
+
+.option-content {
+  text-align: center;
+}
+
+.menu-option .icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.menu-option h2 {
+  color: #2c3e50;
+  margin-bottom: 0.8rem;
+  font-size: 1.5rem;
+}
+
+.menu-option p {
+  color: #7f8c8d;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .summary-cards {
+    flex-direction: column;
+  }
+  
+  .menu-options {
+    grid-template-columns: 1fr;
+  }
+}
