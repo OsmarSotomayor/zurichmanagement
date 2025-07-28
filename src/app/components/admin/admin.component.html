@@ -1,1 +1,24 @@
-<p>admin works!</p>
+<div class="admin-container">
+  <!-- Barra superior modificada -->
+  <header class="admin-header">
+    <h1 class="admin-title">Panel de Administración</h1>
+     <div class="logout-container">
+  </div>
+
+    <div>
+    <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+    </div>
+    
+  </header>
+
+  <nav class="admin-sidebar">
+    <ul>
+      <li><a routerLink="customers" routerLinkActive="active">Gestión de Clientes</a></li>
+      <li><a routerLink="policies" routerLinkActive="active">Gestión de Pólizas</a></li>
+    </ul>
+  </nav>
+
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
