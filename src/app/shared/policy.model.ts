@@ -26,9 +26,7 @@ export interface PolicyFilter {
   type?: PolicyType;
   state?: PolicyState;
   startDateFrom?: Date | string;
-  startDateTo?: Date | string;
   expirationDateFrom?: Date | string;
-  expirationDateTo?: Date | string;
 }
 
 // Para creación

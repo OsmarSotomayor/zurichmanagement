@@ -1,1 +1,183 @@
-<p>policiesmanagement works!</p>
+<div class="container">
+  <div class="filters">
+    <h2>Filtrar Pólizas</h2>
+
+    <form (ngSubmit)="onFilterChange()" class="filter-form">
+      <label>
+        Tipo de Póliza:
+        <select [(ngModel)]="filter.type" name="type">
+          <option [ngValue]="undefined">Todas</option>
+          <option *ngFor="let type of policyTypes" [ngValue]="type">{{ type }}</option>
+        </select>
+      </label>
+
+      <label>
+        Estado:
+        <select [(ngModel)]="filter.state" name="state">
+          <option [ngValue]="undefined">Todos</option>
+          <option *ngFor="let state of policyStates" [ngValue]="state">{{ state }}</option>
+        </select>
+      </label>
+
+      <label>
+        Fecha de inicio (desde):
+        <input type="date" [(ngModel)]="filter.startDateFrom" name="startDateFrom" />
+      </label>
+      <label>
+        Fecha de expiración (desde):
+        <input type="date" [(ngModel)]="filter.expirationDateFrom" name="expirationDateFrom" />
+      </label>
+
+      <button type="submit">Aplicar Filtros</button>
+      <button type="button" (click)="resetFilter()">Limpiar Filtros</button>
+    </form>
+  </div>
+
+  
+  <hr />
+
+  <div class="policy-list">
+    <h2>Listado de Pólizas</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+          <th>Inicio</th>
+          <th>Expiración</th>
+          <th>Monto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let policy of policies">
+          <td>{{ policy.id }}</td>
+          <td>{{ policy.clientName || policy.clientIdentificator }}</td>
+          <td>{{ policy.type }}</td>
+          <td>{{ policy.state }}</td>
+          <td>{{ policy.startDate | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ policy.expirationDate | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ policy.amount | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="policies.length === 0 && !isLoading">No se encontraron pólizas.</p>
+  </div>
+  <hr/>
+  <!--cREAR POLIZA-->
+  <button (click)="toggleCreateForm()" class="toggle-button">
+    {{ showCreateForm ? 'Cancelar' : 'Crear Nueva Póliza' }}
+  </button>
+
+  <div *ngIf="showCreateForm" class="create-form">
+    <h2>Crear Nueva Póliza</h2>
+    <form (ngSubmit)="createPolicy()">
+      <div class="form-group">
+        <label>Tipo de Póliza:</label>
+        <select [(ngModel)]="newPolicy.type" name="newPolicyType" required>
+          <option *ngFor="let type of policyTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Inicio:</label>
+        <input type="date" [(ngModel)]="newPolicy.startDate" name="startDate" required />
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Expiración:</label>
+        <input type="date" [(ngModel)]="newPolicy.expirationDate" name="expirationDate" required />
+      </div>
+
+      <div class="form-group">
+        <label>Monto:</label>
+        <input type="number" [(ngModel)]="newPolicy.amount" name="amount" step="0.01" required />
+      </div>
+       
+      <div class="form-group">
+            <label>Id cliente:</label>
+            <input type="text" 
+                    [(ngModel)]="newPolicy.clientIdentificator" 
+                    name="clientIdentificator" 
+                    pattern="[0-9]*"
+                    required
+                    #idInput="ngModel" />
+        </div>
+
+      <div class="form-group">
+        <label>Estado:</label>
+        <select [(ngModel)]="newPolicy.state" name="state" required>
+          <option *ngFor="let state of policyStates" [value]="state">{{ state }}</option>
+        </select>
+      </div>
+
+      <button type="submit">Crear Póliza</button>
+      <button type="button" (click)="resetNewPolicyForm()">Limpiar Formulario</button>
+    </form>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Cargando...
+  </div>
+
+  <!--BUSCAR CLIENTES-->
+<hr/>
+
+  <button (click)="toggleCustomerSearch()" class="toggle-button">
+  {{ showCustomerSearch ? 'Cancelar Búsqueda' : 'Buscar Cliente' }}
+</button>
+
+<div *ngIf="showCustomerSearch" class="customer-search-form">
+  <h3>Buscar Cliente</h3>
+  <form (ngSubmit)="searchCustomers()">
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input type="text" [(ngModel)]="customerSearch.name" name="customerName" 
+             placeholder="Nombre completo" class="search-input" />
+    </div>
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" [(ngModel)]="customerSearch.email" name="customerEmail" 
+             placeholder="Correo electrónico" class="search-input" />
+    </div>
+
+    <div class="form-group">
+      <label>Identificación:</label>
+      <input type="number" [(ngModel)]="customerSearch.identificador" name="customerId" 
+             placeholder="Número de identificación" class="search-input" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="search-button">Buscar</button>
+      <button type="button" (click)="clearCustomerSearch()" class="clear-button">Limpiar</button>
+    </div>
+  </form>
+
+  <div *ngIf="customers.length > 0" class="customer-results">
+    <h4>Resultados de búsqueda:</h4>
+    <ul class="customer-list">
+      <li *ngFor="let customer of customers" 
+          (click)="selectCustomer(customer)"
+          class="customer-item">
+        <strong>{{ customer.fullName }}</strong>
+        <div>ID: {{ customer.identificationNumber }}</div>
+        <div>Email: {{ customer.email }}</div>
+        <div *ngIf="customer.phoneNumber">Tel: {{ customer.phoneNumber }}</div>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="newPolicy.clientIdentificator" class="selected-customer">
+    <p><strong>Cliente seleccionado:</strong></p>
+    <p>{{ customerSearch.name }} (ID: {{ newPolicy.clientIdentificator }})</p>
+  </div>
+</div>
+</div>

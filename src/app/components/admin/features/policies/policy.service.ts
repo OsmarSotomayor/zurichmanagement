@@ -27,23 +27,11 @@ filterPolicies(filter: PolicyFilter): Observable<Policy[]> {
       filter.startDateFrom : 
       filter.startDateFrom.toISOString());
   }
-  if (filter.startDateTo) {
-    params = params.append('startDateTo', 
-      typeof filter.startDateTo === 'string' ? 
-      filter.startDateTo : 
-      filter.startDateTo.toISOString());
-  }
   if (filter.expirationDateFrom) {
     params = params.append('expirationDateFrom', 
       typeof filter.expirationDateFrom === 'string' ? 
       filter.expirationDateFrom : 
       filter.expirationDateFrom.toISOString());
-  }
-  if (filter.expirationDateTo) {
-    params = params.append('expirationDateTo', 
-      typeof filter.expirationDateTo === 'string' ? 
-      filter.expirationDateTo : 
-      filter.expirationDateTo.toISOString());
   }
 
 

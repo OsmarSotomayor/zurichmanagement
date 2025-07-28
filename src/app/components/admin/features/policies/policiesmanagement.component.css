@@ -1,0 +1,307 @@
+/* Estilos generales */
+.container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #333;
+}
+
+h2, h4 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: #eee;
+  margin: 20px 0;
+}
+
+/* Formularios y filtros */
+.filters, .create-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.filter-form, .create-form form {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  align-items: end;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Botones */
+button, .toggle-button {
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+button:hover, .toggle-button:hover {
+  background-color: #2980b9;
+}
+
+button[type="button"] {
+  background-color: #95a5a6;
+}
+
+button[type="button"]:hover {
+  background-color: #7f8c8d;
+}
+
+.search-button {
+  background-color: #2ecc71;
+}
+
+.search-button:hover {
+  background-color: #27ae60;
+}
+
+.clear-button {
+  background-color: #e74c3c;
+}
+
+.clear-button:hover {
+  background-color: #c0392b;
+}
+
+.toggle-button {
+  margin-bottom: 20px;
+}
+
+/* Tabla de pólizas */
+.policy-list {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #3498db;
+  color: white;
+  font-weight: 500;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Búsqueda de clientes */
+.customer-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 120px;
+  padding: 8px;
+}
+
+.search-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.customer-results {
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.customer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.customer-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.customer-item:hover {
+  background-color: #f0f8ff;
+}
+
+.customer-item:last-child {
+  border-bottom: none;
+}
+
+.customer-item strong {
+  color: #2c3e50;
+}
+
+.selected-customer {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #e8f5e9;
+  border-radius: 4px;
+}
+
+/* Mensajes */
+.error-message {
+  padding: 10px 15px;
+  background-color: #fdecea;
+  color: #d32f2f;
+  border-radius: 4px;
+  margin: 10px 0;
+  border-left: 4px solid #d32f2f;
+}
+
+.loading {
+  padding: 10px 15px;
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border-radius: 4px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filter-form, .create-form form {
+    grid-template-columns: 1fr;
+  }
+  
+  .customer-search {
+    flex-direction: column;
+  }
+  
+  .search-buttons {
+    justify-content: flex-end;
+  }
+  
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* Formulario de búsqueda de clientes */
+.customer-search-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.customer-search-form h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.customer-search-form .form-group {
+  margin-bottom: 15px;
+}
+
+.customer-search-form .form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Resultados de búsqueda */
+.customer-results {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.customer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.customer-item {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.customer-item:hover {
+  background-color: #f0f8ff;
+}
+
+.customer-item:last-child {
+  border-bottom: none;
+}
+
+.customer-item strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.customer-item div {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 3px;
+}
+
+/* Cliente seleccionado */
+.selected-customer {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #e8f5e9;
+  border-radius: 4px;
+  border-left: 4px solid #2ecc71;
+}
+
+.selected-customer p {
+  margin: 5px 0;
+}
+
+.selected-customer strong {
+  color: #27ae60;
+}
