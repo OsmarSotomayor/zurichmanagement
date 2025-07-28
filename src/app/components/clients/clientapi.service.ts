@@ -28,10 +28,10 @@ export class ClientapiService {
   }
 
   // Actualizar datos del cliente
-  updateClientData(clientIdentificator: number, data: { address: string, phoneNumber: string }): Observable<any> {
+  updateClientData(clientIdentificator: number, data: { addres: string, phoneNumber: string }): Observable<any> {
     const url = `${this.baseUrl}/clientes/${clientIdentificator}/actualizar-datos`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, data, { headers });
+    return this.http.patch(url, data, { headers });
   }
 
   // Método privado para crear parámetros de filtro

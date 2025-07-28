@@ -1,1 +1,64 @@
-<p>update-client works!</p>
+<div class="update-client-container">
+  <!-- Paso 1: Ingresar identificador -->
+  <div *ngIf="step === 'identificator'" class="identificator-step">
+    <h2>Actualizar Mis Datos</h2>
+    <form (ngSubmit)="verifyIdentificator()" class="identificator-form">
+      <div class="form-group">
+        <label for="clientIdentificator">Ingrese su número de identificador:</label>
+        <input 
+          type="text" 
+          id="clientIdentificator" 
+          [(ngModel)]="clientIdentificator" 
+          name="clientIdentificator"
+          placeholder="Ejemplo: 1209777481"
+          required>
+      </div>
+      <button type="submit" class="submit-btn">Continuar</button>
+    </form>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  </div>
+
+  <!-- Paso 2: Formulario de actualización -->
+  <div *ngIf="step === 'form'" class="form-step">
+    <h2>Actualizar Datos <small>(ID: {{clientIdentificator}})</small></h2>
+    
+    <form (ngSubmit)="updateClientData()" class="update-form">
+      <div class="form-group">
+        <label for="address">Nueva Dirección:</label>
+        <input 
+          type="text" 
+          id="addres" 
+          [(ngModel)]="addres" 
+          name="addres"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Nuevo Teléfono:</label>
+        <input 
+          type="tel" 
+          id="phoneNumber" 
+          [(ngModel)]="phoneNumber" 
+          name="phoneNumber"
+          required>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" (click)="backToIdentificator()" class="back-btn">Volver</button>
+        <button type="submit" [disabled]="loading" class="submit-btn">
+          <span *ngIf="!loading">Actualizar Datos</span>
+          <span *ngIf="loading">Actualizando...</span>
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="success" class="success-message">
+      ¡Tus datos han sido actualizados exitosamente!
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+      <button (click)="updateClientData()" *ngIf="error && !loading">Reintentar</button>
+    </div>
+  </div>
+</div>
