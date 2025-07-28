@@ -1,0 +1,40 @@
+<div class="customers-container">
+  <h2>Gestión de Clientes</h2>
+  
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-spinner">
+    Cargando clientes...
+  </div>
+
+  <!-- Tabla de Clientes -->
+  <table class="customers-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.id }}</td>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.phone }}</td>
+        <td class="actions">
+          <button class="btn-edit">Editar</button>
+          <button class="btn-delete" (click)="deleteCustomer(customer.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn-add" routerLink="./new">+ Nuevo Cliente</button>
+</div>
